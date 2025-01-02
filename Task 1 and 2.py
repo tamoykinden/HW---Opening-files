@@ -9,10 +9,10 @@ def read_file(file_path):
             list_of_lines.append(line.strip())
     return list_of_lines
 rec = read_file("recipes.txt")
-print (rec)
+#print (rec)
 def chg_in_dict (lines):
     """
-    Считывание рецепта из списка строк.
+   Считывание рецепта из списка строк.
     """
     recipe_name = lines[0].strip()
     ing_count = int(lines[1].strip())
@@ -26,7 +26,7 @@ def chg_in_dict (lines):
         })
     return recipe_name, ingr 
 res = chg_in_dict(rec)
-print(res)
+# print(res)
 def create_cook_book(file_path):
     """
     Создание словаря cook_book из файла.
@@ -81,4 +81,5 @@ def get_shop_list_by_dishes(dishes, person_count, cook_book):
             print(f"Блюдо '{dish}' отсутствует в cook_book.")
 
     return shop_list
-get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2, ok_res)
+res1 = get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2, ok_res)
+print(res1)
