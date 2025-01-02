@@ -12,7 +12,7 @@ rec = read_file("recipes.txt")
 print (rec)
 def chg_in_dict (lines):
     """
-    Парсинг рецепта из списка строк.
+    Считывание рецепта из списка строк.
     """
     recipe_name = lines[0].strip()
     ing_count = int(lines[1].strip())
@@ -27,3 +27,30 @@ def chg_in_dict (lines):
     return recipe_name, ingr 
 res = chg_in_dict(rec)
 print(res)
+def create_cook_book(file_path):
+    """
+    Создание словаря cook_book из файла.
+    """
+    cook_book = {}
+    lines = read_file(file_path)
+    i = 0
+    
+    while i < len(lines):
+        # Пропускаем пустые строки
+        if lines[i].strip() == '':
+            i += 1
+            continue
+        # Определяем количество строк в рецепте
+        recipe_name = lines[i].strip()
+        ingr_count = int(lines[i + 1].strip())
+        end = i + 2 + ingr_count
+        
+        # Парсим рецепт и добавляем в cook_book
+        recipe_name, ingredients = chg_in_dict(lines[i:end])
+        cook_book[recipe_name] = ingredients
+         # Переходим к следующему рецепту
+        i = end
+    
+    return cook_book
+ok_res = create_cook_book("recipes.txt")
+print (ok_res)
