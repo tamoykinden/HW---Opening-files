@@ -45,7 +45,7 @@ def create_cook_book(file_path):
         ingr_count = int(lines[i + 1].strip())
         end = i + 2 + ingr_count
         
-        # Парсим рецепт и добавляем в cook_book
+        # Считываем рецепт и добавляем в cook_book
         recipe_name, ingredients = chg_in_dict(lines[i:end])
         cook_book[recipe_name] = ingredients
          # Переходим к следующему рецепту
@@ -53,4 +53,32 @@ def create_cook_book(file_path):
     
     return cook_book
 ok_res = create_cook_book("recipes.txt")
-print (ok_res)
+# print (ok_res)
+
+#Задание 2
+def get_shop_list_by_dishes(dishes, person_count, cook_book):
+    """
+    Формирует список ингредиентов для приготовления указанных блюд на заданное количество персон.
+    """
+    shop_list = {}  # Словарь для хранения итогового списка ингредиентов
+
+    # Проходим по каждому блюду
+    for dish in dishes:
+        # Проверяем, есть ли блюдо в cook_book
+        if dish in cook_book:
+            # Проходим по каждому ингредиенту блюда
+            for ingredient in cook_book[dish]:
+                name = ingredient['ingredient_name']
+                measure = ingredient['measure']
+                quantity = ingredient['quantity'] * person_count  # Учитываем количество персон
+
+                # Если ингредиент уже есть в списке, суммируем количество
+                if name in shop_list:
+                    shop_list[name]['quantity'] += quantity
+                else:
+                    shop_list[name] = {'measure': measure, 'quantity': quantity}
+        else:
+            print(f"Блюдо '{dish}' отсутствует в cook_book.")
+
+    return shop_list
+get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2, ok_res)
